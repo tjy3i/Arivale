@@ -1,0 +1,24 @@
+{{>animatecss}}
+{{>font_awesome}}
+<div id="centerContainer" class="valign-wrapper">
+    <form id="userSettingsForm" class="valign centerForm animated duration"  action="/userSettings" method="post" role="form">
+        <h3 class="center-align centerHeader">New Password</h3>
+        <hr class="centerHr">
+        <div class="row">
+            <div class="input-field col s12">
+                <input id="newPassword" type="password" class="validate" name="newPassword" value={{newPassword}}>
+                <label for="newPassword">New Password</label>{{>error_text_alert passwordError}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <input id="newPassword2" type="password" class="validate" name="newPassword2" value={{newPassword2}}>
+                <label for="newPassword2">Comfirm Password</label>{{>error_text_alert password2Error}}
+            </div>
+        </div>
+        
+        <div class="center-align">
+            <button class="waves-effect waves-light btn" id="submitButton" type="submit">Submit</button>
+        </div>
+   
+</div>

@@ -1,0 +1,45 @@
+<ul id="slide-out" class="side-nav">
+    {{#if user}}
+    <li>
+        <div class="collapsible-header userView">
+            <p style='font-size: 20px'><i class="fa fa-user" aria-hidden="true"></i><span class="name"><b>{{user.fullName}}</b></span></p>
+            <p><span class="email">{{user.email}}</span></p>
+        </div>
+    </li>
+    <li>
+        <div class="divider"></div>
+    </li>
+    {{#ifMatch "Admin" user.scope}} 
+    <li><a href="/home" class="collapsible-header"><i class="material-icons fa fa-home"></i>Home</a></li>
+    {{/ifMatch}}
+    {{#unlessMatch "Admin" user.scope}} 
+    <li><a href="/coachCalender" class="collapsible-header"><i class="material-icons fa fa-home"></i>Home</a></li>
+    {{/unlessMatch}}
+    <li><a href="/userSettings" class="collapsible-header"><i class="fa fa-key" aria-hidden="true"></i>Change Password</a>
+    </li>
+    {{#ifMatch "Admin" user.scope}} 
+    <li><a href="/coach" class="collapsible-header"><i class="fa fa-plus-square-o" aria-hidden="true"></i>Add New Coach</a>
+    </li>
+    <li><a href="/coach/remove" class="collapsible-header"><i class="fa fa-minus-square-o" aria-hidden="true"></i>Remove Coach</a>
+    </li>
+    {{/ifMatch}}
+    <li><a href="/logout" class="collapsible-header"><i class="fa fa-sign-out" aria-hidden="true"></i>Log Out</a></li>
+    {{else}}
+    <li> 
+    <a  href="/login" class="collapsible-header" ><i class="fa fa-sign-in"aria-hidden="true"></i>Log In </a>
+    </li>
+    <li> 
+    <a  href="/register" class="collapsible-header" ><i class="fa fa-hand-o-right" aria-hidden="true"></i>New account </a>
+    </li>
+    {{/if}}
+</ul>
+<a href="#" data-activates="slide-out" id="menuBtn" class="button-collapse right btn-floating btn-large red"  style="position: fixed" ><i class="material-icons">menu</i></a>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.button-collapse').sideNav({
+            edge: 'right', // Choose the horizontal origin
+        }
+        );
+    });
+
+</script>

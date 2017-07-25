@@ -1,0 +1,72 @@
+{{>animatecss}} {{>font_awesome}}
+
+<div id="centerContainer" class="valign-wrapper">
+    <form id="registerForm" class="valign centerForm animated duration" action="/register" method="post" role="form">
+        <h3 class="center-align centerHeader">
+            {{#if isAdmin}}Administrator{{else}}
+            {{#ifMatch "Admin" ./user.scope}}Add Coach{{/ifMatch}}
+            {{#unlessMatch "Admin" ./user.scope}}Register{{/unlessMatch}}
+            {{/if}}</h3>
+        <hr class="centerHr">
+        <div class="row">
+            <div class="input-field col s12">
+                <input id="registerEmail" type="email" class="validate" name="registerEmail" value={{registerEmail}}>
+                <label for="registerEmail">Email</label> {{>error_text_alert emailError}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s6">
+                <input id="FirstName" type="text" class="validate" name="registerFirstName" value={{registerFirstName}}>
+                <label for="FirstName">First Name</label> {{>error_text_alert firstNameError}}
+            </div>
+            <div class="input-field col s6">
+                <input id="registerLastName" type="text" class="validate" name="registerLastName" value={{registerLastName}}>
+                <label for="registerLastName">Last Name</label> {{>error_text_alert lastNameError}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s6">
+                <input id="registerPassword" type="password" class="validate" name="registerPassword" value={{registerPassword}}>
+                <label for="registerPassword">Password</label> {{>error_text_alert passwordError}}
+            </div>
+            <div class="input-field col s6">
+                <input id="registerConfirmPassword" type="password" class="validate" name="registerPassword2" value={{registerPassword2}}>
+                <label for="registerConfirmPassword">Confirm Password</label> {{>error_text_alert password2Error}}
+            </div>
+        </div>
+        
+        {{#if isAdmin}}
+         <div class="row">
+            <div class="input-field col s6">
+                <input type="radio" id="registerAdmin" class="with-gap" name="registerAdmin" checked  />
+                <label for="registerAdmin">Admin</label>
+            </div>
+        </div>
+        {{/if}}
+        <div class="center-align">
+            <button class="waves-effect waves-light btn" id="registerButton" type="submit">Register</button>
+        </div>
+    </form>
+</div>
+
+<script  type="text/javascript">
+    $('select').material_select();
+    var userEmail =  $('#userEmailSelect')[0]? $('#userEmailSelect')[0].options[0].text:null;
+    $('#userEmailSelect').change(function () {
+        userEmail = $(this).val();  
+        if(userEmail == $('#removeEmail').val()){
+            $('#removeButton').removeClass('disabled');
+        } else{
+            $('#removeButton').addClass('disabled');
+        }      
+    });
+    $('#removeEmail').on('input',function () {
+        if($(this).val() === userEmail){
+            $('#removeButton').removeClass('disabled');
+        } else{
+            $('#removeButton').addClass('disabled');
+        }
+    });
+
+
+</script>

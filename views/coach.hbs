@@ -1,0 +1,69 @@
+{{>animatecss}} {{>font_awesome}} 
+<div id="centerContainer" class="valign-wrapper">
+    <form class="valign centerForm animated duration" action="/coach/remove" method="post" role="form">
+        <h3 class="center-align centerHeader">Remove Coach</h3>
+        <hr class="centerHr">
+        {{#if coaches}} 
+        {{>msg_text message}}
+        <div class="row">
+            <div class="card-panel orange lighten-2"><i class="fa fa-exclamation-triangle fa-2x icons "></i> Warning! Deleting coach is irreversible. The action
+                you're about to take can't be undone. Continuing will permanently delete the coach and all his/her infomation.
+            </div>
+        </div>              
+        <div class="row">            
+            <div class="input-field col s12">Select a coach to delete 
+            </div> 
+            <div class="input-field col s12">               
+                <select id = "coachEmailSelect" name = "coachEmail2">
+                    {{#each ../coaches}}
+                    <option value={{email}}>{{email}}</option>                    
+                    {{/each}}                    
+                </select>
+            </div>
+        </div>
+        <div class="row">            
+            <div class="input-field col s12">
+                <input id="coachEmail" type="text" class="validate" name="coachEmail" value={{email}}>
+                <label for="coachEmail">Confirm Coach</label>{{>error_text_alert coachEmailError}}
+            </div>
+        </div>
+
+        <div class="center-align">
+            <button class="waves-effect waves-light btn disabled" id="removeButton" type="submit" >Remove</button>
+        </div>
+        {{else}}
+        <div class="row">
+            <div class="input-field col s12">No coach exists. Please click to create a new coach.
+            </div>
+        </div> 
+        <div class="row">
+            <div class="input-field col s12">
+                <a href="/coach"></i>Create Coach</a>
+            </div>
+        </div>     
+        {{/if}}
+</div>
+
+
+<script  type="text/javascript">
+    $('select').material_select();
+    var coachEmail =  $('#coachEmailSelect')[0]? $('#coachEmailSelect')[0].options[0].text:null;
+    $('#coachEmailSelect').change(function () {
+        coachEmail = $(this).val();       
+        if(coachEmail == $('#coachEmail').val()){
+            $('#removeButton').removeClass('disabled');
+        } else{
+            $('#removeButton').addClass('disabled');
+        }  
+    });
+    $('#coachEmail').on('input',function () {
+        if($(this).val() === coachEmail){
+            $('#removeButton').removeClass('disabled');
+        } else{
+            $('#removeButton').addClass('disabled');
+        }
+    });
+
+
+</script>
+

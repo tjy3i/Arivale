@@ -1,0 +1,53 @@
+{{>font_awesome}}
+<div class="" id="coachCalendarContainer">
+    {{#if assignCoach}}
+    <div id="centerContainer" class="valign-wrapper">
+        <form class="valign centerForm animated duration" action="/coachCalender" method="post" role="form">
+            <h3 class="center-align centerHeader">Choose Coach</h3>
+            <hr class="centerHr">
+            <div class="row">
+                <div class="input-field col s12">Select a coach
+                </div>
+                <div class="input-field col s12">
+                    <select id="coachEmailSelect" name="coachEmail">
+                    {{#each ../coaches}}
+                    <option value={{email}}>{{email}}</option>                    
+                    {{/each}}                    
+                </select>
+                </div>
+            </div>
+            <div class="center-align">
+                <button class="waves-effect waves-light btn " id="selectCoachButton" type="submit">Submit</button>
+            </div>
+    </div>
+    {{else}}
+    <div id="calendarContainer">
+        <div id='calendar'>
+
+        </div>
+    </div>
+    {{/if}}
+    <div id="cancelModal" class="modal">
+        <div class="modal-content">
+            <h5>Warning</h5>
+            <p>Are you sure to delete this reservation?</p>
+        </div>
+        <div class="modal-footer">
+            <a class="modal-action waves-effect waves-green btn-flat" id="deleteButton">Delete</a>
+            <a class="modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>
+        </div>
+    </div>
+    <div id="scheduleModal" class="modal">
+        <div class="modal-content">
+            <h5>Schedule Call</h5>
+            <p id = "scheduleMsg">Are you going to schedule a call from ?</p>
+        </div>
+        <div class="modal-footer">
+            <a class="modal-action waves-effect waves-green btn-flat" id="confirmButton">OK</a>
+            <a class="modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $('select').material_select();
+</script>

@@ -1,0 +1,108 @@
+{{>animatecss}}
+{{>font_awesome}}
+<div id="centerContainer" class="valign-wrapper">
+    <form id="loginForm" class="valign centerForm animated duration" {{#if resetError}}style="display:none;"{{/if}} action="/login" method="post" role="form">
+        <h3 class="center-align centerHeader">Sign-In</h3>
+        <hr class="centerHr">
+        <div id="errorDiv" class="center-align errorDiv">{{error}}</div>
+        <div class="row">
+            <div class="input-field col s12">
+                <input id="email" type="email" class="validate" name="loginEmail">
+                <label for="email">Email</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <input id="password" type="password" class="validate" name="loginPassword">
+                <label for="password">Password</label>
+            </div>
+        </div>  
+         <div class="row">
+            <div class="input-field col s6">        
+                <a href= "/register" ><i class="fa fa-hand-o-right" aria-hidden="true"></i> Create a new account</a>
+            </div> 
+            <div class="input-field col s6">        
+                <a id= "resetShow" href="#">Forgot your password?</a>
+            </div> 
+         </div> 
+        <div class="center-align">
+            <button class="waves-effect waves-light btn" id="loginButton" type="submit">Login</button>
+        </div>
+    </form>    
+    <form id="userSettingsForm" class="valign centerForm animated duration"  action="/login/reset" {{#unless resetError}}style="display:none;"{{/unless}} method="post" role="form">
+        <h3 class="center-align centerHeader">Reset Password</h3>
+        <hr class="centerHr">
+        <div class="row">
+            <div class="input-field col s12">
+                <input id="email" type="email" class="validate" name="email" value={{email}}>
+                <label for="email">Email</label>{{>error_text_alert emailError}}
+            </div>
+        </div>
+         <div class="row">
+            <div class="input-field col s6">
+                <input id="FirstName" type="text" class="validate" name="resetFirstName" value={{resetFirstName}}>
+                <label for="FirstName">First Name</label> {{>error_text_alert firstNameError}}
+            </div>
+            <div class="input-field col s6">
+                <input id="LastName" type="text" class="validate" name="resetLastName" value={{resetLastName}}>
+                <label for="LastName">Last Name</label> {{>error_text_alert lastNameError}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <input id="newPassword" type="password" class="validate" name="newPassword" value={{newPassword}}>
+                <label for="newPassword">New Password</label>{{>error_text_alert passwordError}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <input id="newPassword2" type="password" class="validate" name="newPassword2" value={{newPassword2}}>
+                <label for="newPassword2">Comfirm Password</label>{{>error_text_alert password2Error}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">        
+                <a id= "loginShow" href="#">Back to log in</a>
+            </div> 
+         </div> 
+        <div class="center-align">
+            <button class="waves-effect waves-light btn" id="submitButton" type="submit">Submit</button>
+        </div>
+    </form>
+</div>
+
+
+<script type="text/javascript">
+    $.fn.extend({
+        animateCss: function (animationName, hide, callback) {
+            var animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
+            $(this).addClass('animated ' + animationName).one(animationEnd, function() {
+                if(hide)
+                    $(this).hide();
+                $(this).removeClass(animationName);
+                if(callback)
+                    callback();
+            });
+        }
+    });
+
+    $(document).ready(function(){
+        $("#resetShow").click(function(e){
+            e.preventDefault();
+
+            $("#loginForm").animateCss("fadeOut", true, function(){
+                $("#userSettingsForm").animateCss("slideInRight", false);
+                $("#userSettingsForm").show();
+            });
+
+        });
+
+        $("#loginShow").click(function(e){
+            e.preventDefault();
+            $("#userSettingsForm").animateCss("fadeOut", true, function(){
+                $("#loginForm").animateCss("slideInRight", false);
+                $("#loginForm").show();
+            });
+        });
+    });
+</script>
